@@ -1,38 +1,33 @@
 ﻿using UnityEngine;
-using UnityEngine.Networking;
+using System.Collections;
 
-public class PlayerController : NetworkBehaviour
+public class PlayerController : MonoBehaviour
 {
-    public GameObject bulletPrefab;
+    public int nbPlayer;
+    public float speed;
+    public float speedRotation;
+    public float rotationAngle;
 
-    public override void OnStartLocalPlayer()
+    private float ver_angle = 0.0f;
+    private Rigidbody2D _rb;
+
+    void Start ()
     {
-        GetComponent<SpriteRenderer>().color = Color.red;
-    }
-
-    [Command]
-    void CmdFire()
+        _rb = GetComponent<Rigidbody2D>();
+	}
+	
+	void Update ()
     {
-        var bullet = (GameObject)Instantiate(
-             bulletPrefab,
-             bulletPrefab.transform.position - transform.forward,
-             Quaternion.identity);
-        NetworkServer.Spawn(bullet);
-    }
+        float r = Input.GetAxis("Horizontal" + nbPlayer.ToString()) * -1;
+        float h = Input.GetAxis("Vertical" + nbPlayer.ToString());
 
-    void Update()
-    {
-        if (!isLocalPlayer)
-            return;
+        // Movement Vertical
+        _rb.velocity = new Vector2(0, h) * speed;
 
-        var x = Input.GetAxis("Horizontal") * 0.1f;
-        var y = Input.GetAxis("Vertical") * 0.1f;
-
-        transform.Translate(x, y, 0);
-
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            CmdFire();
-        }
+        // Rotation Z
+        ver_angle = Mathf.Clamp(ver_angle + r * speedRotation, -rotationAngle, rotationAngle);
+        Vector3 current_rot = transform.rotation.eulerAngles;
+        current_rot.z = ver_angle;
+        transform.rotation = Quaternion.Euler(current_rot);
     }
 }
