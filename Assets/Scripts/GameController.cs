@@ -3,15 +3,14 @@ using UnityEngine.UI;
 using System.Collections;
 using UnityEngine.Networking;
 
-public class GameController : NetworkManager
+public class GameController : NetworkBehaviour 
 {
-    public GameObject balle;
-    private int _nbPlayer;
-    private bool _spawnBall;
+    [SyncVar(hook = "OnPlayerOneScoreChanged")] private int _playerOneScore = 0;
+    [SyncVar(hook = "OnPlayerTwoScoreChanged")] private int _playerTwoScore = 0;
 
     public void Start()
     {
-        _spawnBall = false;
+        
     }
 
     public void Update()
@@ -19,10 +18,22 @@ public class GameController : NetworkManager
         
     }
 
-    public override void OnServerAddPlayer(NetworkConnection conn, short playerControllerId)
+    public void AddScorePlayerOne()
     {
-        base.OnServerAddPlayer(conn, playerControllerId);
-       
-        _nbPlayer += 1;
+
+    }
+
+    public void OnPlayerOneScoreChanged(int i = 1)
+    {
+        Debug.Log(i);
+        _playerOneScore += i;
+        GameObject.Find("Score Player1").GetComponent<Text>().text = _playerOneScore.ToString();
+    }
+
+    public void OnPlayerTwoScoreChanged(int i = 1)
+    {
+        Debug.Log(i);
+        _playerTwoScore += 1;
+        GameObject.Find("Score Player2").GetComponent<Text>().text = _playerOneScore.ToString();
     }
 }
