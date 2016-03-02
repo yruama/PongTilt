@@ -5,13 +5,32 @@ public class BallController : MonoBehaviour {
 
     public float speed;
 
+    private Rigidbody2D _rb;
+    private Vector2 _dir;
+
 	void Start ()
     {
-        GetComponent<Rigidbody2D>().AddForce(new Vector2(speed, 0), ForceMode2D.Force);
+        _rb = GetComponent<Rigidbody2D>();
+        _dir = new Vector2(1.0f, 0f) * speed;
+        // GetComponent<Rigidbody2D>().AddForce(new Vector2(speed, 0), ForceMode2D.Force);
     }
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+
+    void Update()
+    {
+        _rb.velocity = _dir;
+        Debug.Log(_dir);
+    }
+
+    void OnCollisionEnter2D(Collision2D col)
+    {
+        if (col.gameObject.tag == "Player")
+        {
+            _dir = col.contacts[0].normal.normalized * speed;
+        }
+        else if (col.gameObject.tag == "Border")
+        {
+            _dir = new Vector2(_dir.x, _dir.y * -1);
+        }
+       
+    }
 }
