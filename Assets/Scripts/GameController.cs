@@ -2,8 +2,6 @@
 using UnityEngine.UI;
 using System.Collections;
 
-[RequireComponent(typeof(BallController))] // be sure that GetComponent<BallController> works.
-// Game Controller should be on an isolated game_object... it feels weird to have it on the ball, especially when the ball has to communicate with GameController.
 public class GameController : MonoBehaviour
 {
     //    public GameObject Ball; // Use lower case on fields
@@ -12,8 +10,6 @@ public class GameController : MonoBehaviour
     public Text time_text;
     public Text left_score_text;
     public Text right_score_text;
-
-    private BallController _ball_controller;
 
     private int _playerRightScore;
     private int _playerLeftScore;
@@ -26,11 +22,6 @@ public class GameController : MonoBehaviour
         _time = Time.time;
         _dir = new Vector2(1.0f, 0.0f);
 
-        _ball_controller = GetComponent<BallController>();
-        if (_ball_controller == null)
-        {
-            Debug.LogError("Unable to find BallController on " + gameObject.name);
-        }
         if (time_text == null)
         {
             Debug.LogError("time_text field should not be empty.");
@@ -59,12 +50,7 @@ public class GameController : MonoBehaviour
                 //GameObject.Find("Time").GetComponent<Text>().enabled = false;
                 time_text.enabled = false;
                 GameObject go = Instantiate(ball, ball.transform.position, Quaternion.identity) as GameObject;
-                // Avoid GetComponent at every frame if possible
-                // go.GetComponent<BallController>().setDir(_dir);
-                if (_ball_controller != null)
-                {
-                    _ball_controller.SetDir(_dir);
-                }
+                go.GetComponent<BallController>().SetDir(_dir);
             }
             //GameObject.Find("Time").GetComponent<Text>().text = (3 - ((int)Time.time - (int)_time)).ToString();
             time_text.text = (3 - ((int)Time.time - (int)_time)).ToString();
