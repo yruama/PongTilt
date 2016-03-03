@@ -10,6 +10,12 @@ public class PlayerController : MonoBehaviour
 
     private float ver_angle = 0.0f;
     private Rigidbody2D _rb;
+    private Vector2 _position;
+
+    void Awake()
+    {
+        _position = gameObject.transform.position;
+    }
 
     void Start ()
     {
@@ -24,10 +30,17 @@ public class PlayerController : MonoBehaviour
         // Movement Vertical
         _rb.velocity = new Vector2(0, h) * speed;
 
+        Debug.Log(transform.rotation.eulerAngles);
         // Rotation Z
         ver_angle = Mathf.Clamp(ver_angle + r * speedRotation, -rotationAngle, rotationAngle);
         Vector3 current_rot = transform.rotation.eulerAngles;
         current_rot.z = ver_angle;
         transform.rotation = Quaternion.Euler(current_rot);
+    }
+
+    public void ResetPositionAndRotation()
+    {
+        gameObject.transform.position = _position;
+        ver_angle = 0;
     }
 }
