@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 
 public class BallController : MonoBehaviour {
@@ -8,17 +9,15 @@ public class BallController : MonoBehaviour {
     private Rigidbody2D _rb;
     private Vector2 _dir;
 
+
 	void Start ()
     {
         _rb = GetComponent<Rigidbody2D>();
-        _dir = new Vector2(1.0f, 0f) * speed;
-        // GetComponent<Rigidbody2D>().AddForce(new Vector2(speed, 0), ForceMode2D.Force);
     }
 
     void Update()
     {
         _rb.velocity = _dir;
-        Debug.Log(_dir);
     }
 
     void OnCollisionEnter2D(Collision2D col)
@@ -31,6 +30,20 @@ public class BallController : MonoBehaviour {
         {
             _dir = new Vector2(_dir.x, _dir.y * -1);
         }
-       
+        else if (col.gameObject.name == "Left")
+        {
+            GameObject.Find("GameController").GetComponent<GameController>().addScorePlayerLeft();
+            Destroy(gameObject);
+        }
+        else if (col.gameObject.name == "Right")
+        {
+            GameObject.Find("GameController").GetComponent<GameController>().addScorePlayerRight();
+            Destroy(gameObject);
+        }
+    }
+
+    public void setDir(Vector2 dir)
+    {
+        _dir = dir * speed;
     }
 }
