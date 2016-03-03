@@ -7,6 +7,7 @@ public class PlayerController : MonoBehaviour
     public float speed;
     public float speedRotation;
     public float rotationAngle;
+    public float boundary;
 
     private float ver_angle = 0.0f;
     private Rigidbody2D _rb;
@@ -29,8 +30,8 @@ public class PlayerController : MonoBehaviour
 
         // Movement Vertical
         _rb.velocity = new Vector2(0, h) * speed;
+        _rb.position = new Vector2(transform.position.x, Mathf.Clamp(transform.position.y, boundary * -1, boundary));
 
-        Debug.Log(transform.rotation.eulerAngles);
         // Rotation Z
         ver_angle = Mathf.Clamp(ver_angle + r * speedRotation, -rotationAngle, rotationAngle);
         Vector3 current_rot = transform.rotation.eulerAngles;

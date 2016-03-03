@@ -32,7 +32,7 @@ public class BallController : MonoBehaviour
         }
         else if (col.gameObject.name == "Left")
         {
-            game_controller.addScorePlayerLeft();
+            game_controller.addScorePlayerRight();
             gameObject.transform.position = Vector2.zero;
             SetVelocity(Vector2.zero);
             gameObject.SetActive(false);
@@ -41,7 +41,7 @@ public class BallController : MonoBehaviour
         }
         else if (col.gameObject.name == "Right")
         {
-            game_controller.addScorePlayerRight();
+            game_controller.addScorePlayerLeft();
             gameObject.transform.position = Vector2.zero;
             SetVelocity(Vector2.zero);
             gameObject.SetActive(false);
