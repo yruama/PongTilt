@@ -12,9 +12,12 @@ GameObject:
   - 50: {fileID: 5025824}
   - 61: {fileID: 6129944}
   - 114: {fileID: 11408310}
+  - 114: {fileID: 11427424}
+  - 114: {fileID: 11486864}
+  - 114: {fileID: 11455336}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -26,7 +29,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 158916}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -6.271236, y: -0.08172655, z: 0}
+  m_LocalPosition: {x: -7.5, y: 0, z: 0}
   m_LocalScale: {x: 0.15, y: 1.5, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -39,11 +42,11 @@ Rigidbody2D:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 158916}
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 99
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 0
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
@@ -56,7 +59,7 @@ BoxCollider2D:
   m_GameObject: {fileID: 158916}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 6200000, guid: 5c94464264d03e845888a93bd2ae23a4, type: 2}
+  m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_Offset: {x: 0, y: 0}
@@ -73,9 +76,75 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb4f09ff10237e741845149a03253940, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nbPlayer: 1
   speed: 5
+  speedRotation: 5
   rotationAngle: 50
+  boundary: 3.75
+--- !u!114 &11427424
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 158916}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 372142912, guid: 870353891bb340e2b2a9c8707e7419ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SceneId:
+    m_Value: 0
+  m_AssetId:
+    i0: 88
+    i1: 21
+    i2: 225
+    i3: 88
+    i4: 138
+    i5: 186
+    i6: 176
+    i7: 244
+    i8: 168
+    i9: 137
+    i10: 201
+    i11: 248
+    i12: 55
+    i13: 29
+    i14: 194
+    i15: 214
+  m_ServerOnly: 0
+  m_LocalPlayerAuthority: 1
+--- !u!114 &11455336
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 158916}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff131dd0405214740b8170fb279e399b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerTransform: {fileID: 434284}
+  lerpRate: 15
+--- !u!114 &11486864
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 158916}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1768714887, guid: 870353891bb340e2b2a9c8707e7419ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_TransformSyncMode: 2
+  m_SendInterval: 0.1
+  m_SyncRotationAxis: 7
+  m_RotationSyncCompression: 0
+  m_SyncSpin: 0
+  m_MovementTheshold: 0.001
+  m_SnapThreshold: 5
+  m_InterpolateRotation: 1
+  m_InterpolateMovement: 1
 --- !u!212 &21216890
 SpriteRenderer:
   m_ObjectHideFlags: 1

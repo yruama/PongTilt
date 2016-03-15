@@ -3,10 +3,8 @@
 [RequireComponent(typeof(Rigidbody2D))]
 public class BallController : MonoBehaviour
 {
-
     public float speed;
     public GameController game_controller;
-    public PlayerController[] player_controller;
 
     private Rigidbody2D _rb;
     private Vector2 _velocity;
@@ -36,8 +34,11 @@ public class BallController : MonoBehaviour
             gameObject.transform.position = Vector2.zero;
             SetVelocity(Vector2.zero);
             gameObject.SetActive(false);
-            player_controller[0].ResetPositionAndRotation();
-            player_controller[1].ResetPositionAndRotation();
+            foreach (GameObject p in GameObject.FindGameObjectsWithTag("Player"))
+            {
+                p.GetComponent<PlayerController>().ResetPositionAndRotation();
+            }
+            
         }
         else if (col.gameObject.name == "Right")
         {
@@ -45,8 +46,10 @@ public class BallController : MonoBehaviour
             gameObject.transform.position = Vector2.zero;
             SetVelocity(Vector2.zero);
             gameObject.SetActive(false);
-            player_controller[0].ResetPositionAndRotation();
-            player_controller[1].ResetPositionAndRotation();
+            foreach (GameObject p in GameObject.FindGameObjectsWithTag("Player"))
+            {
+                p.GetComponent<PlayerController>().ResetPositionAndRotation();
+            }
         }
     }
 

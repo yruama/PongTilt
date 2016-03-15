@@ -1,9 +1,9 @@
 ﻿using UnityEngine;
+using UnityEngine.Networking;
 using System.Collections;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : NetworkBehaviour
 {
-    public int nbPlayer;
     public float speed;
     public float speedRotation;
     public float rotationAngle;
@@ -20,13 +20,17 @@ public class PlayerController : MonoBehaviour
 
     void Start ()
     {
+        GameObject.Find("GameController").GetComponent<GameController>().addPlayer(this.gameObject);
         _rb = GetComponent<Rigidbody2D>();
 	}
 	
 	void Update ()
     {
-        float r = Input.GetAxis("Horizontal" + nbPlayer.ToString()) * -1;
-        float h = Input.GetAxis("Vertical" + nbPlayer.ToString());
+        if (isLocalPlayer == false)
+            return;
+
+        float r = Input.GetAxis("Horizontal");
+        float h = Input.GetAxis("Vertical");
 
         // Movement Vertical
         _rb.velocity = new Vector2(0, h) * speed;

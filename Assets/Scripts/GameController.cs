@@ -1,8 +1,10 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using System.Collections.Generic;
+using UnityEngine.Networking;
 
-public class GameController : MonoBehaviour
+public class GameController : NetworkBehaviour
 {
     public GameObject ball;
 
@@ -10,6 +12,7 @@ public class GameController : MonoBehaviour
     public Text left_score_text;
     public Text right_score_text;
 
+    public List<GameObject> playerList;
 
     private int _playerRightScore;
     private int _playerLeftScore;
@@ -36,9 +39,10 @@ public class GameController : MonoBehaviour
         }
     }
 
-    void Update ()
+    
+    void Update () 
     {
-	    if (ball.activeSelf == false)
+        if (ball.activeSelf == false && playerList.Count > 1)
         {
             time_text.enabled = true;
             if (Time.time - _time > 3)
@@ -69,5 +73,11 @@ public class GameController : MonoBehaviour
             left_score_text.text = _playerLeftScore.ToString();
         }
         _time = Time.time - 2.0f;
+    }
+
+    public void addPlayer(GameObject g)
+    {
+        _time = Time.time;
+        playerList.Add(g);
     }
 }
